@@ -3,6 +3,6 @@ import (
   "net/http",
   "jcbhmr.me/crev"
 )
-func Handler(res http.ResponseWriter, req *http.Request) {
-	crev.ServeHTTP(res, req)
+func Handler(w http.ResponseWriter, r *http.Request) {
+  crev.ServeHTTP(w, r)
 }

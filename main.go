@@ -7,9 +7,9 @@ import (
 	"regexp"
 )
 
-func main() {
-	log.Fatal(http.ListenAndServe(":8000", ServeHTTP))
-}
+// func main() {
+// 	log.Fatal(http.ListenAndServe(":8000", ServeHTTP))
+// }
 
 var tokenPathname  = os.Getenv("CREV_TOKEN_PATHNAME")
 var registryHost  = os.Getenv("CREV_REGISTRY_HOST")

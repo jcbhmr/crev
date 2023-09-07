@@ -1,23 +1,10 @@
 package main
 
 import (
-	"os"
-	"log"
+	"log",
+	"net/http"
 )
 
 func main() {
-	var registryHost string
-	if len(os.Args) >= 2 {
-		registryHost = os.Args[1]
-	}
-	if registryHost == "" {
-		registryHost = "ghcr.io"
-	}
-
-	var repoPrefix string
-	if len(os.Args) >= 3 {
-		repoPrefix = os.Args[2]
-	}
-
-	log.Fatal(ListenAndServe(":8080", registryHost, repoPrefix))
+	log.Fatal(http.ListenAndServe(":8000", ServeHTTP))
 }

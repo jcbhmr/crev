@@ -1,9 +1,9 @@
 package main
 
 import (
-	"log",
-	"net/http",
-	"fmt",
+	"log"
+	"net/http"
+	"fmt"
 	"regexp"
 )
 

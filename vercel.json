@@ -1,0 +1,24 @@
+{
+  "rewrites": [
+    {
+      "source": "/v2/(.*)?",
+      "destination": "/api/v2/splat.go"
+    },
+    {
+      "source": "/crev-token/(.*)?",
+      "destination": "/api/crev-token/splat.go"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://github.com/devcontainers-community",
+      "permanent": false
+    }
+  ],
+  "env": {
+    "CREV_REGISTRY_HOST": "ghcr.io",
+    "CREV_REPO_PREFIX": "devcontainers-community",
+    "CREV_TOKEN_PATHNAME": "/crev-token/%s"
+  }
+}

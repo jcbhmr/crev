@@ -1,3 +1,3 @@
-module jcbhmr.me/crev
+module devcontainers.community
 
 go 1.20

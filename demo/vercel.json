@@ -1,8 +1,0 @@
-{
-  "rewrites": [{ "source": "/v2(/.*)?", "destination": "/api/crev.go" }],
-  "env": {
-    "CREV_TOKEN_PATHNAME": "/api/crev",
-    "CREV_REGISTRY_HOST": "docker.io",
-    "CREV_REPO_PREFIX": "denoland"
-  }
-}

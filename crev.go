@@ -1,4 +1,4 @@
-package main
+package crev
 
 import (
 	"log"

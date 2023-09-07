@@ -49,7 +49,7 @@ oras manifest fetch devcontainers.community/templates/dart
 {
   "rewrites": [{ "source": "/v2(/.*)?", "destination": "/api/crev.go" }],
   "env": {
-    "CREV_TOKEN_URL": "/api/crev",
+    "CREV_TOKEN_PATHNAME": "/api/crev",
     "CREV_REGISTRY_HOST": "ghcr.io",
     "CREV_REPO_PREFIX": "jcbhmr"
   }

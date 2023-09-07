@@ -1,18 +1,17 @@
 package crev
 
 import (
-	"log"
-	"net/http"
 	"fmt"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
+	"os"
 	"regexp"
+	"strings"
 )
 
-// func main() {
-// 	log.Fatal(http.ListenAndServe(":8000", ServeHTTP))
-// }
-
-var tokenPathname  = os.Getenv("CREV_TOKEN_PATHNAME")
-var registryHost  = os.Getenv("CREV_REGISTRY_HOST")
+var tokenPathname = os.Getenv("CREV_TOKEN_PATHNAME")
+var registryHost = os.Getenv("CREV_REGISTRY_HOST")
 var repoPrefix = os.Getenv("CREV_REPO_PREFIX")
 var registryOAuth2URL string
 
@@ -25,7 +24,7 @@ func init() {
 	registryOAuth2URL = u
 }
 
-var realmRegexp := regexp.MustCompile(`realm="(.*?)"`)
+var realmRegexp = regexp.MustCompile(`realm="(.*?)"`)
 
 func findRegistryOAuth2URL(registryHost string) (string, error) {
 	u := fmt.Sprintf("https://%s/v2/", registryHost)
@@ -48,7 +47,7 @@ func findRegistryOAuth2URL(registryHost string) (string, error) {
 }
 
 var host string
-var mux http.ServeMux
+var mux *http.ServeMux
 
 func init() {
 	mux = http.NewServeMux()
@@ -76,7 +75,7 @@ func v2ModifyResponse(res *http.Response) error {
 	if res.Header.Get("WWW-Authenticate") != "" {
 		h := res.Header.Get("WWW-Authenticate")
 		h = realmRegex.ReplaceAllString(h, fmt.Sprintf(`realm="https://%s%s"`, host, tokenPathname))
-		res.Header.Set("WWW-Authenticate", x)
+		res.Header.Set("WWW-Authenticate", h)
 	}
 	return nil
 }
@@ -85,10 +84,10 @@ var token = httputil.ReverseProxy{
 	Rewrite: tokenRewrite,
 }
 
-func tokenRewrite(p *httputil.ProxyRequest) error {
+func tokenRewrite(p *httputil.ProxyRequest) {
 	scope := p.In.URL.Query().Get("scope")
 	if scope == "" {
-		return fmt.Errorf("?scope not set %s", p.In.URL.String())
+		panic(fmt.Errorf("?scope not set %s", p.In.URL.String()))
 	}
 	if repoPrefix != "" {
 		scopeParts := strings.Split(scope, ":")
@@ -96,12 +95,11 @@ func tokenRewrite(p *httputil.ProxyRequest) error {
 			scopeParts[1] = repoPrefix + "/" + scopeParts[1]
 		}
 		scope = strings.Join(scopeParts, ":")
-		q.Set("scope", scope)
 	}
 
-	u, err = url.Parse(registryOAuth2URL)
+	u, err := url.Parse(registryOAuth2URL)
 	if err != nil {
-		return err
+		panic(err)
 	}
 	p.Out.URL = u
 

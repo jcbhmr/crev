@@ -1,7 +1,7 @@
 package handler
 import (
   "net/http"
-  "jcbhmr.me/crev"
+  crev "jcbhmr.me/crev/pkg"
 )
 func Handler(w http.ResponseWriter, r *http.Request) {
   crev.ServeHTTP(w, r)

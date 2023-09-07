@@ -1,4 +1,4 @@
-package crev
+package pkg
 
 import (
 	"fmt"

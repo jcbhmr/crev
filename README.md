@@ -1,10 +1,16 @@
 # Your <ins>c</ins>ontainer <ins>r</ins>egistry r<ins>ev</ins>erse proxy
 
-💻 Serverless container registry proxy for your domain
+💻 Serverless container registry proxy for your domain \
+💡 Inspired by [ahmetb/serverless-registry-proxy]
 
 <p align=center>
   <img src="https://i.imgur.com/dMEK0O2.png">
 </p>
+
+🌼 Lets you use **your own domain** for your containers \
+📦 Uses an existing container registry as the actual storage \
+🔒 Intelligently proxies auth requests to the original auth service \
+✅ Works with [docker.io] and [ghcr.io]
 
 ## Usage
 
@@ -27,3 +33,6 @@ func main() {
 ```
 
 If you're interested in a completely preconfigured solution, check out the [`examples/`] folder for Vercel, Docker, Google Cloud Run, and more templates. The gist is that you hook up any of those premade serverless things to your domain like `octocatcr.io` or `cr.octocat.me` and live happily ever after. You **can** host your container registry on your main domain. See the examples folder for more details.
+
+[`examples/`]: https://github.com/mycrev/crev/tree/main/examples
+[ahmetb/serverless-registry-proxy]: https://github.com/ahmetb/serverless-registry-proxy
